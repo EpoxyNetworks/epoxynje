@@ -27,12 +27,10 @@
 #include "consts.h"
 #include "headers.h"
 #include "prototypes.h"
-/*
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-*/
 #include <netdb.h>
 
 extern struct ENQUIRE Enquire;
@@ -215,7 +213,6 @@ const int	Index, finalize;
 	i = strlen(Line->HostName);
 	ASCII_TO_EBCDIC(Line->HostName, ControlBlock.Ohost, i);
 	PAD_BLANKS(ControlBlock.Ohost, i, 8);
-fprintf(stderr, "rip size %d\n", sizeof(ControlBlock.Rip));
 	ControlBlock.Rip = get_host_ip_address(Index, IP_ADDRESS);
 	ControlBlock.Oip = get_host_ip_address(Index, HostName);
 	ControlBlock.R = 0;

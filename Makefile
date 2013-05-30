@@ -176,7 +176,7 @@ MAILIFY=mailify
 
 # Linux drb version
 CDEFS=-DUSG -DNBCONNECT -DNBSTREAM -DUSE_XMIT_QUEUE \
-	-DUSE_SOCKOPT -DUSE_ENUM_TYPES -DDEBUG \
+	-DUSE_SOCKOPT -DSOCKBUFSIZE=8192 -DUSE_ENUM_TYPES -DDEBUG \
 	-DCONFIG_FILE='"/etc/funetnje/funetnje.cf"' \
 	-DPID_FILE='"/run/funetnje.pid"'
 CC=gcc
