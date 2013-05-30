@@ -5,6 +5,7 @@
  | after writing, so we can look in it at any time.
  */
 
+#include <stdio.h>
 #include "consts.h"
 #include "prototypes.h"
 #include "ebcdic.h"
@@ -27,7 +28,7 @@ logger(int lvl, ...)
 	va_list pvar;
 
 	va_start(pvar, lvl);
-	lvl = va_arg(pvar,int);
+/*	lvl = va_arg(pvar,int); */
 	va_end(pvar);
 	
 	/* Do we have to log it at all ? */
@@ -39,14 +40,13 @@ logger(int lvl, ...)
 	if (LogFd == 0) {	/* Not opened before */
 	  if (strcmp(LOG_FILE,"-")==0)  LogFd = stderr;
 	  else if ((LogFd = fopen(LOG_FILE, "a")) == NULL) {
-	  	fprintf(stderr, "failed opening log file: %d\n", errno);
-	    LogFd = 0;
+	    LogFd = NULL;
 	    return;
 	  }
 	}
 
 	va_start(pvar, lvl);
-	lvl = va_arg(pvar,int);
+/*	lvl = va_arg(pvar,int); */
 	fmt = va_arg(pvar,char*);
 
 	fprintf(LogFd, "%s, ", local_time());
