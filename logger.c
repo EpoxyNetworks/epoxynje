@@ -39,6 +39,7 @@ logger(int lvl, ...)
 	if (LogFd == 0) {	/* Not opened before */
 	  if (strcmp(LOG_FILE,"-")==0)  LogFd = stderr;
 	  else if ((LogFd = fopen(LOG_FILE, "a")) == NULL) {
+	  	fprintf(stderr, "failed opening log file: %d\n", errno);
 	    LogFd = 0;
 	    return;
 	  }
