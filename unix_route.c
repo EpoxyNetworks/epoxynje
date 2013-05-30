@@ -85,13 +85,13 @@ const int	LineSize;
 	     it now and return success */
 	  if (*DefaultRoute != '\0') {
 #ifdef DEBUG
-	    logger(4, "Using default route for '%s'\n", TempLine);
+	    logger(4, "Using default route for '%s'\n", key);
 #endif
 	    sprintf(line, "%s E", DefaultRoute);
 	    return -1;
 	  }
 #ifdef	DEBUG
-	  logger(2,"Not found a route record for key: `%s'/`%s'\n",key,TempLine);
+	  logger(2,"Not found a route record for key: `%s'/\n",key);
 #endif
 	  return 0;	/* Not found */
 	}
