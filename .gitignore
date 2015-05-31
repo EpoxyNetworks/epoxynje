@@ -16,3 +16,8 @@ transfer
 ucp
 ygone
 clientlib.a
+
+# makeinfo/texinfo bits
+funetnje.info
+funetnje.dvi
+funetnje.ps
