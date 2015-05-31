@@ -286,6 +286,7 @@ all:	$(PROGRAMS)
 # Following need GNU TeXinfo package (3.1 or later)
 info:	funetnje.info
 dvi:	funetnje.dvi
+html:	funetnje.html
 
 .PRECIOUS:	clientlib.a
 
@@ -552,6 +553,8 @@ funetnje.info:	funetnje.texinfo
 funetnje.dvi:	funetnje.texinfo
 	tex funetnje.texinfo
 
+funetnje.html:	funetnje.texinfo
+	texi2html funetnje.texinfo
 
 lint:	lintlib
 	lint -hc $(CDEFS) llib-lhuji.ln $(SRC)
