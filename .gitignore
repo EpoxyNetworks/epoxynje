@@ -1,0 +1,18 @@
+# built objects
+*.o
+.old
+acctcat
+bitsend
+bmail
+funetnje
+mailify
+namesfilter
+njeroutes
+qrdr
+receive
+sendfile
+tell
+transfer
+ucp
+ygone
+clientlib.a
