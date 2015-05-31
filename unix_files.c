@@ -5,6 +5,7 @@
 
 */
 
+#include <time.h>
 #include "consts.h"
 #include "prototypes.h"
 

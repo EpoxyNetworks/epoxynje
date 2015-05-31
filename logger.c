@@ -8,7 +8,8 @@
 #include "consts.h"
 #include "prototypes.h"
 #include "ebcdic.h"
-#include <varargs.h>
+#include <stdarg.h>
+#include <time.h>
 
 extern int LogLevel;	/* In main() source module of each program */
 extern FILE *LogFd;	/* In main() source module of each program */
@@ -19,15 +20,13 @@ extern FILE *LogFd;	/* In main() source module of each program */
  | after writing, so we can look in it at any time.
  */
 void
-logger(va_alist)
-va_dcl
+logger(int lvl, ...)
 {
 	char	*local_time();
-	int lvl;
 	char *fmt;
 	va_list pvar;
 
-	va_start(pvar);
+	va_start(pvar, lvl);
 	lvl = va_arg(pvar,int);
 	va_end(pvar);
 	
@@ -45,7 +44,7 @@ va_dcl
 	  }
 	}
 
-	va_start(pvar);
+	va_start(pvar, lvl);
 	lvl = va_arg(pvar,int);
 	fmt = va_arg(pvar,char*);
 

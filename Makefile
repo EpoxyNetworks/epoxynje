@@ -89,23 +89,23 @@
 #RANLIB = ranlib
 #INSTALL=install
 
-# DEC AxpOSF/1 3.2 -- GCC-2.6.3
-#CC=gcc -Wall -O6 #-fno-builtin
-CC=cc -migrate -D__alpha__ -O5 -inline speed
-#CC=cc -D__alpha__
-CPP=gcc -E
-CDEFS=  -DBSD_SIGCHLDS -DHAS_LSTAT -DHAS_PUTENV #-DDEBUG
-CFLAGS= -g3 $(CDEFS)
-# Have MAILIFY compiled by uncommenting following ones:
-MAILIFY=mailify
-MAILIFYCFLAGS= $(CFLAGS) -DUSE_ZMAILER -I/l/include
-LIBMAILIFY= -lzmailer
-##MAILIFYCFLAGS= $(CFLAGS)
-##LIBMAILIFY=
-NETW=
-LIBS=$(NETW)
-RANLIB=ranlib
-INSTALL=installbsd
+# # DEC AxpOSF/1 3.2 -- GCC-2.6.3
+# #CC=gcc -Wall -O6 #-fno-builtin
+# CC=cc -migrate -D__alpha__ -O5 -inline speed
+# #CC=cc -D__alpha__
+# CPP=gcc -E
+# CDEFS=  -DBSD_SIGCHLDS -DHAS_LSTAT -DHAS_PUTENV #-DDEBUG
+# CFLAGS= -g3 $(CDEFS)
+# # Have MAILIFY compiled by uncommenting following ones:
+# MAILIFY=mailify
+# MAILIFYCFLAGS= $(CFLAGS) -DUSE_ZMAILER -I/l/include
+# LIBMAILIFY= -lzmailer
+# ##MAILIFYCFLAGS= $(CFLAGS)
+# ##LIBMAILIFY=
+# NETW=
+# LIBS=$(NETW)
+# RANLIB=ranlib
+# INSTALL=installbsd
 
 # SunOS 5.3 (Solaris 2.3) -- GNU-CC 2.4.6 on SPARC
 #   Your PATH  MUST contain  /usr/ccs/bin:/opt/gnu/bin:/usr/ucb
@@ -148,7 +148,7 @@ INSTALL=installbsd
 #CDEFS=  -O -DBSD_SIGCHLDS -DHAS_LSTAT -DHAS_PUTENV
 #CFLAGS=  $(CDEFS)
 # Have MAILIFY compiled by uncommenting following ones:
-#MAILIFY=mailify
+MAILIFY=mailify
 ##MAILIFYCFLAGS= $(CFLAGS) -DUSE_ZMAILER -I/usr/local/include
 ##LIBMAILIFY= -lzmailer
 ##MAILIFYCFLAGS= $(CFLAGS)
@@ -174,6 +174,25 @@ INSTALL=installbsd
 #RANLIB=ranlib
 #INSTALL=install
 
+# Linux drb version
+CDEFS=-DUSG -DNBCONNECT -DNBSTREAM -DUSE_XMIT_QUEUE \
+	-DUSE_SOCKOPT -DUSE_ENUM_TYPES -DDEBUG \
+	-DCONFIG_FILE='"/etc/funetnje/funetnje.cf"' \
+	-DPID_FILE='"/run/funetnje.pid"'
+CC=gcc
+CPP=gcc -E
+CFLAGS= -g -O2 $(CDEFS)
+#NETW=
+# Have MAILIFY compiled by uncommenting following ones:
+#MAILIFY=mailify
+##MAILIFYCFLAGS= $(CFLAGS) -DUSE_ZMAILER -I/usr/local/include
+##LIBMAILIFY= -lzmailer
+##MAILIFYCFLAGS= $(CFLAGS)
+##LIBMAILIFY=
+#LIBS=$(NETW)
+RANLIB=ranlib
+INSTALL=install
+
 # IBM AIX ?
 
 
@@ -185,13 +204,13 @@ INSTALL=installbsd
 # to successfully use  UCP  program.
 NJEGRP=funetnje
 # On some machines there may exist `send' already, choose another name.
-SEND=send
-PRINT=print
+SEND=tell
+PRINT=njeprint
 # Assign directories
-MANDIR= /l/man
-LIBDIR= /l/funetnje
-BINDIR= /l/bin
-ETCDIR= /l/etc
+MANDIR= /usr/local/man
+LIBDIR= /usr/local/funetnje
+BINDIR= /usr/local/bin
+ETCDIR= /usr/local/etc
 
 # If you have a malloc library with GOOD debugging facilities..
 #DEBUG_LIBMALLOC=-L.. -lmalloc_dgcc
@@ -325,7 +344,7 @@ man-ps:
 nje.route:	finfiles.header finfiles.netinit
 	@echo "THIS IS FOR NIC.FUNET.FI!"
 	-rm nje.route*
-	njeroutes  finfiles.header finfiles.netinit nje.route
+	$(LIBDIR)/njeroutes  finfiles.header finfiles.netinit nje.route
 
 route2:	nje.route2
 
@@ -369,16 +388,17 @@ install:
 	ln ${BINDIR}/sendfile ${BINDIR}/bitprt
 	ln ${BINDIR}/sendfile ${BINDIR}/punch
 	ln ${BINDIR}/sendfile ${BINDIR}/submit
-	$(INSTALL) -s -g ${NJEGRP} -m 755 send ${BINDIR}/${SEND}
+	$(INSTALL) -s -g ${NJEGRP} -m 755 tell ${BINDIR}/${SEND}
 	# If you want to call 'send' with name 'tell'
 	# rm -f ${BINDIR}/tell
 	# ln ${BINDIR}/${SEND} ${BINDIR}/tell
 	$(INSTALL) -s -g ${NJEGRP} -m 755 ygone ${BINDIR}
 	$(INSTALL) -s -g ${NJEGRP} -m 755 receive ${BINDIR}
 	$(INSTALL) -s -g ${NJEGRP} -m 750 bmail    ${LIBDIR}
-	chgrp ${NJEGRP} /usr/spool/bitnet
-	chmod g+w  /usr/spool/bitnet
-	chmod g+s ${BINDIR}/sendfile ${BINDIR}/send ${BINDIR}/ygone \
+	mkdir -p /var/spool/bitnet
+	chgrp ${NJEGRP} /var/spool/bitnet
+	chmod g+w  /var/spool/bitnet
+	chmod g+s ${BINDIR}/sendfile ${BINDIR}/tell ${BINDIR}/ygone \
 		 ${LIBDIR}/bmail
 	$(INSTALL) -s -m 755 transfer ${LIBDIR}/transfer
 	$(INSTALL) -s -m 755 njeroutes ${LIBDIR}/njeroutes

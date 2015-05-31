@@ -79,7 +79,7 @@
 
 extern int	errno;
 extern int	sys_nerr;	/* Maximum error number recognised */
-extern char	*sys_errlist[];	/* List of error messages */
+/* extern char	*sys_errlist[];	*/ /* List of error messages */
 #define	PRINT_ERRNO	(errno > sys_nerr ? "***" : sys_errlist[errno])
 
 
@@ -241,7 +241,7 @@ extern struct passwd *getpwnam __(( const char *name ));
 extern void	can_shut_down __(( void ));
 
 /* logger.c - shrunk */
-extern void	logger    __(( ));
+extern void	logger    __((int lvl, ...));
 extern void	trace __(( const void *ptr, const int n, const int lvl ));
 extern char    *local_time __(( void ));
 extern volatile void  bug_check __(( const char *text ));

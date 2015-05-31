@@ -18,7 +18,7 @@
 
 extern int	errno;
 extern int	sys_nerr;	/* Maximum error number recognised */
-extern char	*sys_errlist[];	/* List of error messages */
+/* extern char	*sys_errlist[];	*/ /* List of error messages */
 #define	PRINT_ERRNO	(errno > sys_nerr ? "***" : sys_errlist[errno])
 
 struct Bintree *routedb = NULL;
