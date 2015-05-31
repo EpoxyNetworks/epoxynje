@@ -405,7 +405,7 @@ Revised September 21, 1990
  continue to  have limitations.    That is,   if a  host with
  traditional leased lines is down, no other path may exist to
  the sites supported by that leased line.
-@sp 0
+@sp 1
 @dots{}
 @sp 1
 @center Benefits of the restructuring
